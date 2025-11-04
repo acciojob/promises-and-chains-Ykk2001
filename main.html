@@ -1,13 +1,56 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promises And Chains</title>
+</head>
+<body>
+    <form action="" id="userForm">
+        <input type="text" id="name" placeholder="Enter the Name">
+        <input type="number"  id="age" placeholder="Enter the age">
+        <button id="btn" type="submit">Submit</button>
+    </form>
 
-<html>
-  <head>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
+    <script>
+        let btn=document.getElementById('btn');
+        let userForm=document.getElementById('userForm')
+        btn.addEventListener('click',(e)=>{
+         e.preventDefault();
+         let name=document.getElementById('name').value;
+         let age=document.getElementById('age').value;
 
-  <body>
-    <!-- write the body here -->
+         if(!name || !age)
+         {
+            alert("Please enter valid details");
+            return;
+         }
 
-    <script type="text/javascript" src="./script.js"></script>
-  </body>
+         function canVote(name,age)
+         {
+           return new Promise((resolve,reject)=>{
+                  setTimeout(()=>{
+                     if(age>18)
+                     {
+                        resolve(`Welcome, ${name}. You can vote.`)
+                     }
+                     else{
+                        reject(`Oh sorry ${name}. You aren't old enough.`)
+                     }
+                  },4000)
+           })
+         }//canvote
+
+          canVote(name,age)
+         .then((data)=>{
+            alert(data)
+         })
+         .catch((err)=>{
+           alert(err)
+         })
+        
+         userForm.reset()
+        })//addEvent Listener
+    </script>
+</body>
 </html>
